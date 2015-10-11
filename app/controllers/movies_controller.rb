@@ -8,12 +8,33 @@ class MoviesController < ApplicationController
 
   def show
     id = params[:id] # retrieve movie ID from URI route
+    rating = params[:rating]
     @movie = Movie.find(id) # look up movie by unique ID
+    @movie = Movie.find(rating)
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings = ['G','PG','PG-13','R']
+    #@all_ratings = Movie.all_ratings
+    
+    #highlight code from dr. verdicchio, haml.html code from dr. v also
+    @sort = params[:sort]
+    if @sort == 'title'
+        @title_hilite = 'hilite'
+    elsif @sort == "release_date"
+        @date_hilite = 'hilite'
+    end
+    
+    
+    #rating = params[:rating]
+    #@movies = Movie.all
+    #http://railscasts.com/episodes/228-sortable-table-columns?view=asciicast
+    #@movies = Movie.order(params[:sort])
+    #we need to sort this instead of returning everything using .where
+    #@movies = Movie.where(rating: @selected_ratings)
+    @movies = Movie.where(rating: 'G')
+    #need to use hash to deal with multiple boxes checked
   end
 
   def new
