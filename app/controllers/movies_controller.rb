@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
     
     @selected_ratings = params[:ratings] || session[:ratings] || {}
     
-    # if {}, we need to create a fake ratings hash with everything "checked"
+    #if {}, we need to create a fake ratings hash with everything "checked"
     if @selected_ratings == {}
       @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
